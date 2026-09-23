@@ -41,7 +41,7 @@
       <section aria-labelledby="fun-facts-title">
         <h1 class="fun-facts-title" id="fun-facts-title">Fun facts</h1>
         <p>Outside research, I enjoy bodybuilding and strength training. Here are a few photos from the gym, around campus, and at conferences.</p>
-        <p class="photo-note">Click a photo to view it full size.</p>
+        <p class="photo-note">Click a photo to see it larger.</p>
       </section>
 
       <section aria-labelledby="bodybuilding-title">
@@ -74,7 +74,7 @@
     </main>
   </div>
 
-  <!-- Photo viewer: a gallery photo opens here, on top of the page, instead of replacing it.
+  <!-- Photo viewer: a gallery photo opens here, on top of the page, at about twice its size on the page.
        Close it with the x button, the Esc key, or a click on the dark background. -->
   <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
     <button class="lightbox-close" type="button" aria-label="Close photo">&times;</button>
@@ -90,6 +90,7 @@
         links[i].addEventListener('click', function (event) {
           var thumb = this.querySelector('img');
           event.preventDefault();
+          dialog.style.setProperty('--photo-width', Math.round((thumb ? thumb.getBoundingClientRect().width : 360) * 2) + 'px'); // twice its size on the page; change the 2 to taste
           image.src = this.href;
           image.alt = thumb ? thumb.alt : '';
           dialog.showModal();
@@ -102,7 +103,6 @@
       document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape' && dialog.open) { dialog.close(); } // Esc closes it even where the browser's built-in handling does not
       });
-      dialog.addEventListener('close', function () { image.removeAttribute('src'); });
     })();
   </script>
 </body>
