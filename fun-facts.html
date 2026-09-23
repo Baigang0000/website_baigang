@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Outside research: bodybuilding, strength training, and photos from the gym and around campus.">
+  <meta name="description" content="Outside research: bodybuilding, strength training, and photos from the gym, around campus, and at conferences.">
   <meta property="og:title" content="Fun facts — Baigang Chen">
   <meta property="og:description" content="Outside research: bodybuilding, strength training, and a few photos.">
   <meta property="og:type" content="website">
@@ -40,7 +40,7 @@
     <main id="main">
       <section aria-labelledby="fun-facts-title">
         <h1 class="fun-facts-title" id="fun-facts-title">Fun facts</h1>
-        <p>Outside research, I enjoy bodybuilding and strength training. Here are a few photos from the gym and around campus.</p>
+        <p>Outside research, I enjoy bodybuilding and strength training. Here are a few photos from the gym, around campus, and at conferences.</p>
         <p class="photo-note">Click a photo to view it full size.</p>
       </section>
 
@@ -60,8 +60,47 @@
         </div>
       </section>
 
+      <section aria-labelledby="conferences-title">
+        <h2 id="conferences-title">Conferences</h2>
+        <div class="photo-grid">
+          <figure>
+            <a href="./photos/usenix-2025-poster.jpg"><img src="./photos/usenix-2025-poster.jpg" alt="Baigang Chen standing beside a research poster at USENIX Security 2025." width="1318" height="1282" loading="lazy" decoding="async"></a>
+            <figcaption>Presenting a poster at USENIX Security 2025.</figcaption>
+          </figure>
+        </div>
+      </section>
+
       <footer><a href="./">Back to the academic homepage</a></footer>
     </main>
   </div>
+
+  <!-- Photo viewer: a gallery photo opens here, on top of the page, instead of replacing it.
+       Close it with the x button, the Esc key, or a click on the dark background. -->
+  <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+    <button class="lightbox-close" type="button" aria-label="Close photo">&times;</button>
+    <img class="lightbox-img" alt="">
+  </dialog>
+  <script>
+    (function () {
+      var dialog = document.getElementById('lightbox');
+      if (!dialog || typeof dialog.showModal !== 'function') { return; } // very old browsers keep the plain links
+      var image = dialog.querySelector('.lightbox-img');
+      var links = document.querySelectorAll('.photo-grid a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function (event) {
+          var thumb = this.querySelector('img');
+          event.preventDefault();
+          image.src = this.href;
+          image.alt = thumb ? thumb.alt : '';
+          dialog.showModal();
+        });
+      }
+      dialog.querySelector('.lightbox-close').addEventListener('click', function () { dialog.close(); });
+      dialog.addEventListener('click', function (event) {
+        if (event.target === dialog) { dialog.close(); } // the click landed on the dark background, not on the photo
+      });
+      dialog.addEventListener('close', function () { image.removeAttribute('src'); });
+    })();
+  </script>
 </body>
 </html>
